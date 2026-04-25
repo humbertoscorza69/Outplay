@@ -1,14 +1,16 @@
 using System;
+using Outplay.Core;
 using UnityEngine;
 
 namespace Outplay.Player
 {
     /// <summary>
     /// Authoritative mana container with constant deterministic per-second regen.
-    /// Per the Skill First pillar: regen has no RNG.
+    /// Implements IResourceProvider for HUD/UI binding. Per the Skill First pillar:
+    /// regen has no RNG.
     /// </summary>
     [DisallowMultipleComponent]
-    public class PlayerMana : MonoBehaviour
+    public class PlayerMana : MonoBehaviour, IResourceProvider
     {
         [Header("Mana Tuning")]
         [SerializeField] private float maxMana = 100f;
@@ -16,29 +18,29 @@ namespace Outplay.Player
 
         private float currentMana;
 
-        public float CurrentMana => currentMana;
-        public float MaxMana => maxMana;
+        public float Current => currentMana;
+        public float Max => maxMana;
 
-        public event Action<float, float> OnManaChanged;
+        public event Action<float, float> OnChanged;
 
         private void Awake()
         {
             currentMana = maxMana;
-            OnManaChanged?.Invoke(currentMana, maxMana);
+            OnChanged?.Invoke(currentMana, maxMana);
         }
 
         private void Update()
         {
             if (currentMana >= maxMana) return;
             currentMana = Mathf.Min(currentMana + manaRegenPerSecond * Time.deltaTime, maxMana);
-            OnManaChanged?.Invoke(currentMana, maxMana);
+            OnChanged?.Invoke(currentMana, maxMana);
         }
 
         public bool TrySpend(float amount)
         {
             if (amount <= 0f || currentMana < amount) return false;
             currentMana -= amount;
-            OnManaChanged?.Invoke(currentMana, maxMana);
+            OnChanged?.Invoke(currentMana, maxMana);
             return true;
         }
 
@@ -46,7 +48,7 @@ namespace Outplay.Player
         {
             if (amount <= 0f) return;
             currentMana = Mathf.Min(currentMana + amount, maxMana);
-            OnManaChanged?.Invoke(currentMana, maxMana);
+            OnChanged?.Invoke(currentMana, maxMana);
         }
     }
 }
