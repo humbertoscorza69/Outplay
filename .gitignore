@@ -48,6 +48,9 @@
 # Visual Studio Code directory
 .vscode/
 
+# Claude Code per-developer state
+.claude/
+
 # Gradle cache directory
 .gradle/
 
