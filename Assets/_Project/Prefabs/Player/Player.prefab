@@ -15,6 +15,8 @@ GameObject:
   - component: {fileID: 1900011}
   - component: {fileID: 1900012}
   - component: {fileID: 1900013}
+  - component: {fileID: 1900014}
+  - component: {fileID: 1900015}
   m_Layer: 0
   m_Name: Player
   m_TagString: Untagged
@@ -239,3 +241,30 @@ MonoBehaviour:
   wedgeColor: {r: 1, g: 1, b: 1, a: 1}
   wedgeRelativeSize: 0.25
   pixelsPerUnit: 100
+--- !u!114 &1900014
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1900001}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7d4c8b6a5f3e2a1b9c0d8e7f6a5b4c08, type: 3}
+  m_Name:
+  m_EditorClassIdentifier:
+  maxHP: 100
+--- !u!114 &1900015
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1900001}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7d4c8b6a5f3e2a1b9c0d8e7f6a5b4c09, type: 3}
+  m_Name:
+  m_EditorClassIdentifier:
+  maxMana: 100
+  manaRegenPerSecond: 5
