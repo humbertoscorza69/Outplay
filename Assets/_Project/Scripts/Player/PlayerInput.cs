@@ -6,7 +6,7 @@ namespace Outplay.Player
 {
     /// <summary>
     /// Sole owner of Input System wiring for the player.
-    /// Other player scripts read movement/aim from here and subscribe to dash events.
+    /// Other player scripts read movement/aim from here and subscribe to action events.
     /// </summary>
     [DisallowMultipleComponent]
     public class PlayerInput : MonoBehaviour
@@ -21,6 +21,7 @@ namespace Outplay.Player
         public Vector2 MoveInput { get; private set; }
         public Vector2 AimWorldPosition => cachedAim;
         public event Action OnDashPressed;
+        public event Action OnFirePressed;
 
         private void Awake()
         {
@@ -32,11 +33,13 @@ namespace Outplay.Player
         {
             controls.Player.Enable();
             controls.Player.Dash.performed += HandleDashPerformed;
+            controls.Player.Fire.performed += HandleFirePerformed;
         }
 
         private void OnDisable()
         {
             controls.Player.Dash.performed -= HandleDashPerformed;
+            controls.Player.Fire.performed -= HandleFirePerformed;
             controls.Player.Disable();
         }
 
@@ -61,6 +64,11 @@ namespace Outplay.Player
         private void HandleDashPerformed(InputAction.CallbackContext ctx)
         {
             OnDashPressed?.Invoke();
+        }
+
+        private void HandleFirePerformed(InputAction.CallbackContext ctx)
+        {
+            OnFirePressed?.Invoke();
         }
     }
 }

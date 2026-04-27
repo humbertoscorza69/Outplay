@@ -5,6 +5,7 @@ namespace Outplay.Player
     /// <summary>
     /// Generates a placeholder elliptical "capsule" body with a facing wedge at runtime.
     /// Lives on the rotating Visual child; the wedge points in local +Y.
+    /// Also creates a WandTip child Transform for projectile spawn positioning.
     /// </summary>
     [DisallowMultipleComponent]
     [RequireComponent(typeof(SpriteRenderer))]
@@ -22,12 +23,24 @@ namespace Outplay.Player
         [Header("Sprite Settings")]
         [SerializeField] private int pixelsPerUnit = 100;
 
+        [Header("Wand Tip")]
+        [Tooltip("Local +Y distance for the spawn-point Transform. Should clear the player's collider radius.")]
+        [SerializeField] private float wandTipDistance = 0.65f;
+
         private SpriteRenderer spriteRenderer;
+        private Transform wandTip;
+
+        public Transform WandTip => wandTip;
 
         private void Awake()
         {
             spriteRenderer = GetComponent<SpriteRenderer>();
             spriteRenderer.sprite = BuildSprite();
+
+            var go = new GameObject("WandTip");
+            go.transform.SetParent(transform, false);
+            go.transform.localPosition = new Vector3(0f, wandTipDistance, 0f);
+            wandTip = go.transform;
         }
 
         private Sprite BuildSprite()

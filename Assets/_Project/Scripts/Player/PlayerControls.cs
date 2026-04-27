@@ -5,7 +5,7 @@
 //
 //     If you enable "Generate C# Class" on the .inputactions asset in Unity,
 //     this file will be overwritten with Unity's canonical regenerated output.
-//     The public API surface (PlayerControls.Player.Move/Aim/Dash, Enable, Disable)
+//     The public API surface (PlayerControls.Player.Move/Aim/Dash/Fire, Enable, Disable)
 //     is stable across regenerations.
 // </auto-generated>
 //------------------------------------------------------------------------------
@@ -53,6 +53,15 @@ namespace Outplay.Player
                     ""name"": ""Dash"",
                     ""type"": ""Button"",
                     ""id"": ""22222222-2222-2222-2222-222222222203"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""Fire"",
+                    ""type"": ""Button"",
+                    ""id"": ""22222222-2222-2222-2222-222222222204"",
                     ""expectedControlType"": ""Button"",
                     ""processors"": """",
                     ""interactions"": """",
@@ -158,6 +167,28 @@ namespace Outplay.Player
                     ""action"": ""Dash"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""33333333-3333-3333-3333-33333333330a"",
+                    ""path"": ""<Mouse>/leftButton"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Fire"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""33333333-3333-3333-3333-33333333330b"",
+                    ""path"": ""<Gamepad>/rightTrigger"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Fire"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
                 }
             ]
         }
@@ -169,6 +200,7 @@ namespace Outplay.Player
             m_Player_Move = m_Player.FindAction("Move", throwIfNotFound: true);
             m_Player_Aim = m_Player.FindAction("Aim", throwIfNotFound: true);
             m_Player_Dash = m_Player.FindAction("Dash", throwIfNotFound: true);
+            m_Player_Fire = m_Player.FindAction("Fire", throwIfNotFound: true);
         }
 
         ~@PlayerControls()
@@ -238,6 +270,7 @@ namespace Outplay.Player
         private readonly InputAction m_Player_Move;
         private readonly InputAction m_Player_Aim;
         private readonly InputAction m_Player_Dash;
+        private readonly InputAction m_Player_Fire;
         public struct PlayerActions
         {
             private @PlayerControls m_Wrapper;
@@ -245,6 +278,7 @@ namespace Outplay.Player
             public InputAction @Move => m_Wrapper.m_Player_Move;
             public InputAction @Aim => m_Wrapper.m_Player_Aim;
             public InputAction @Dash => m_Wrapper.m_Player_Dash;
+            public InputAction @Fire => m_Wrapper.m_Player_Fire;
             public InputActionMap Get() { return m_Wrapper.m_Player; }
             public void Enable() { Get().Enable(); }
             public void Disable() { Get().Disable(); }
@@ -263,6 +297,9 @@ namespace Outplay.Player
                 @Dash.started += instance.OnDash;
                 @Dash.performed += instance.OnDash;
                 @Dash.canceled += instance.OnDash;
+                @Fire.started += instance.OnFire;
+                @Fire.performed += instance.OnFire;
+                @Fire.canceled += instance.OnFire;
             }
 
             private void UnregisterCallbacks(IPlayerActions instance)
@@ -276,6 +313,9 @@ namespace Outplay.Player
                 @Dash.started -= instance.OnDash;
                 @Dash.performed -= instance.OnDash;
                 @Dash.canceled -= instance.OnDash;
+                @Fire.started -= instance.OnFire;
+                @Fire.performed -= instance.OnFire;
+                @Fire.canceled -= instance.OnFire;
             }
 
             public void RemoveCallbacks(IPlayerActions instance)
@@ -298,6 +338,7 @@ namespace Outplay.Player
             void OnMove(InputAction.CallbackContext context);
             void OnAim(InputAction.CallbackContext context);
             void OnDash(InputAction.CallbackContext context);
+            void OnFire(InputAction.CallbackContext context);
         }
     }
 }

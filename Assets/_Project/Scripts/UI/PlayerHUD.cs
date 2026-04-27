@@ -1,5 +1,6 @@
-using UnityEngine;
+using Outplay.Combat;
 using Outplay.Player;
+using UnityEngine;
 
 namespace Outplay.UI
 {
@@ -11,7 +12,7 @@ namespace Outplay.UI
     public class PlayerHUD : MonoBehaviour
     {
         [Header("Sources")]
-        [SerializeField] private PlayerHealth playerHealth;
+        [SerializeField] private Health playerHealth;
         [SerializeField] private PlayerMana playerMana;
 
         [Header("Bars")]
